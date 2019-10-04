@@ -11,7 +11,7 @@ require_once "connection.php";
 include_once('includes/header.inc.php');
 
 $sql = "SELECT Message.date, Utilisateur.login, Message.sujet, Message.corps FROM Message INNER JOIN Utilisateur
-            ON Message.recepteur = Utilisateur.id_login WHERE Message.id_Message = " . $_GET["id"];
+            ON Message.recepteur = Utilisateur.id_login WHERE Message.id_message = " . $_GET["id"];
 
 $stmt = $pdo->query($sql);
 $result = $stmt->fetch(PDO::FETCH_OBJ);

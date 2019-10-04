@@ -58,7 +58,7 @@
                               . $mess['login'] . "</td><td>" . $mess['sujet'] . "</td>
                               <td><a href='sendMail.php'>répondre</a></td>
                               <td><a href='deleteMail.php'>supprimer</a></td>
-                              <td><a href='details.php?id=" . $mess['id_Message'] . "'>détails</a></td></tr>";
+                              <td><a href='details.php?id=" . $mess['id_message'] . "'>détails</a></td></tr>";
                       }
                     ?>
                   </tbody>
