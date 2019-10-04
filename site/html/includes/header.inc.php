@@ -65,7 +65,7 @@
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
-        
+
         <?php
             if (isset($_SESSION["isNotAdmin"]) && $_SESSION["isNotAdmin"] === 0){
                 echo '<!-- Nav Item - Tables -->

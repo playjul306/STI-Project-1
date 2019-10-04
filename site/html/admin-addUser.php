@@ -26,16 +26,21 @@ if (isset($_GET['edit_id_login'])) {
 
 if(isset($_POST['edit'])){
     if (isset($_POST['id_login'])){
-
-        if (isset($_POST['password'])){
-            $hashPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
-            $strSQLRequest = "UPDATE Utilisateur SET login = ?, password = ?, valide = ?, id_role = ? WHERE id_login = ?";
-            $stmt= $pdo->prepare($strSQLRequest);
-            $stmt->execute([$_POST['login'], $hashPassword, $_POST['valide'], $_POST['Role'], $_POST['id_login']]);
-        } else {
-            $strSQLRequest = "UPDATE Utilisateur SET login = ?, valide = ?, id_role = ? WHERE id_login = ?";
-            $stmt= $pdo->prepare($strSQLRequest);
-            $stmt->execute([$_POST['login'], $_POST['valide'], $_POST['Role'], $_POST['id_login']]);
+        try {
+            if (isset($_POST['password'])) {
+                $hashPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                $strSQLRequest = "UPDATE Utilisateur SET login = ?, password = ?, valide = ?, id_role = ? WHERE id_login = ?";
+                $stmt = $pdo->prepare($strSQLRequest);
+                $stmt->execute([$_POST['login'], $hashPassword, $_POST['valide'], $_POST['Role'], $_POST['id_login']]);
+            } else {
+                $strSQLRequest = "UPDATE Utilisateur SET login = ?, valide = ?, id_role = ? WHERE id_login = ?";
+                $stmt = $pdo->prepare($strSQLRequest);
+                $stmt->execute([$_POST['login'], $_POST['valide'], $_POST['Role'], $_POST['id_login']]);
+            }
+        } catch (PDOException $e) {
+            header("Location: 404.php");
+            echo $strSQLRequest;
+            die("ERROR: Could not able to execute $strSQLRequest. " . $e->getMessage());
         }
         header("Location: admin.php");
     } else {
@@ -51,7 +56,7 @@ if(isset($_POST['add'])){
         $stmt->execute([$_POST['login'], $hashPassword, $_POST['valide'], $_POST['Role']]);
         header("Location: admin.php");
     } catch(PDOException $e){
-        //header("Location: 404.php");
+        header("Location: 404.php");
         echo $strSQLRequest;
         die("ERROR: Could not able to execute $strSQLRequest. " . $e->getMessage());
     }
