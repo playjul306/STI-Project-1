@@ -1,12 +1,11 @@
 <?php
-include_once('includes/header.inc.php');
-
 session_start();
 
 if(empty($_SESSION["loggedin"]) && $_SESSION["loggedin"] === false){
     header("location: login.php");
     exit;
 }
+include_once('includes/header.inc.php');
 
 require_once "connection.php";
 
@@ -47,6 +46,8 @@ require_once "connection.php";
     </div>
 </div>
 
+</div>
+<!-- End of Main Content -->
 
 <?php
 include_once('includes/footer.inc.php');
