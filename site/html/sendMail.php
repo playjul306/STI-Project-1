@@ -1,5 +1,16 @@
 <?php
 include_once('includes/header.inc.php');
+
+session_start();
+
+if(empty($_SESSION["loggedin"]) && $_SESSION["loggedin"] === false){
+    header("location: login.php");
+    exit;
+}
+
+require_once "connection.php";
+
+
 ?>
 
 
@@ -35,17 +46,6 @@ include_once('includes/header.inc.php');
         </div>
     </div>
 </div>
-
-<!-- Bootstrap core JavaScript-->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="js/sb-admin-2.min.js"></script>
-
 
 
 <?php

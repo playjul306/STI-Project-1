@@ -58,7 +58,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Service de messagerie :</h6>
                     <a class="collapse-item" href="index.php"><i class="fas fa-fw fa-envelope-open"></i><span> Boite de réception</span></a>
-                    <a class="collapse-item" href="sendMessage.php"><i class="fas fa-fw fa-envelope-open-text"></i><span> Envoyer un message</span></a>
+                    <a class="collapse-item" href="sendMail.php"><i class="fas fa-fw fa-envelope-open-text"></i><span> Envoyer un message</span></a>
                 </div>
             </div>
         </li>
