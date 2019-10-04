@@ -66,6 +66,7 @@
                         }
                         $_SESSION["id"] = $id_login;
                         $_SESSION["login"] = $login;
+                        $_SESSION["role"] = $role;
 
                         // Redirect user to welcome page
                         header("location: login.php");
