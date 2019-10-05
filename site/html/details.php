@@ -1,4 +1,6 @@
 <?php
+include_once('includes/header.inc.php');
+
 session_start();
 
 if(empty($_SESSION["loggedin"]) && $_SESSION["loggedin"] === false){
@@ -8,7 +10,6 @@ if(empty($_SESSION["loggedin"]) && $_SESSION["loggedin"] === false){
 
 require_once "connection.php";
 
-include_once('includes/header.inc.php');
 
 $sql = "SELECT Message.date, Utilisateur.login, Message.sujet, Message.corps FROM Message INNER JOIN Utilisateur
             ON Message.recepteur = Utilisateur.id_login WHERE Message.id_message = " . $_GET["id"];
