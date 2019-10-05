@@ -18,6 +18,8 @@ $result = $stmt->fetch(PDO::FETCH_OBJ);
 ?>
 
 <?php
+echo '<div class="container-fluid" >';
+
 if(!empty($result)) {
     $rowArray = array("Date de réception:","Expéditeur:","Sujet:","Message:");
     $sqlRow = array("date", "login", "sujet", "corps");
@@ -28,7 +30,6 @@ if(!empty($result)) {
         array_push($valueArray, $result->$sqlRow[$cpt++]);
     }
 
-    echo '<div class="container-fluid" >';
     for ($i = 0; $i < count($rowArray); $i++) {
         $sizeOfBloc = $i > 1 ? 9 : 3;
                 echo'<div class="col-lg-' . $sizeOfBloc .'">
@@ -40,20 +41,19 @@ if(!empty($result)) {
                 </div>
               </div >';
     }
-    echo '</div >';
 }
 else{
-    echo '<div class="container-fluid" >
-            <div class="col-lg-3" >
+            echo'<div class="col-lg-3" >
                 <div class="card shadow mb-4" >
                     <div class="card-header py-3" >
                         <h6 class="m-0 font-weight-bold text-primary" > Erreur:</h6 >
                     </div >
                     <div class="card-body" >Aucun mail à afficher</div >
                 </div >
-            </div >
-        </div>';
+            </div >';
 }
+echo '</div >';
+
 
 echo '<a href="index.php" class="btn btn-primary btn-user btn-block">Retour</a>';
 
