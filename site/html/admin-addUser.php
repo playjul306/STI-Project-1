@@ -104,6 +104,9 @@ include_once('includes/header.inc.php');
                                     </div>
                                 </div>
                                 <div class='form-group'>
+                                <div class='col-sm-2'>
+                                        <label class='text-lg'> Activité du compte :</label>
+                                    </div>
                                     <div class='col-sm-4'>
                                         <select name='valide' class='form-control form-control-user'>
                                         <option value='1'";
@@ -154,6 +157,9 @@ include_once('includes/header.inc.php');
                                     </div>
                                 </div>
                                 <div class='form-group'>
+                                <div class='col-sm-2'>
+                                        <label class='text-lg'> Activité du compte :</label>
+                                    </div>
                                     <div class='col-sm-4'>
                                         <select name='valide' class='form-control form-control-user'>
                                             <option value='1'> Compte activé</option>

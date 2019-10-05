@@ -63,8 +63,8 @@
                             echo "<td>non</td>";
                         }
                         echo "<td>".$user["nom_role"]."</td>";
-                        echo "<td><a class='dropdown-item' href='admin-addUser.php?edit_id_login=".$user["id_login"]."'>modifier</a></td>";
-                        echo "<td><a class='dropdown-item' href='admin-deleteUser.php?delete_id_login=". $user["id_login"]."'>supprimer</a></td>";
+                        echo "<td><a href='admin-addUser.php?edit_id_login=".$user["id_login"]."'>modifier</a></td>";
+                        echo "<td><a href='admin-deleteUser.php?delete_id_login=". $user["id_login"]."'>supprimer</a></td>";
                         echo "</tr>";
                     }
                     ?>
