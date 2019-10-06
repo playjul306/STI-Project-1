@@ -21,7 +21,7 @@ $result = $stmt->fetch(PDO::FETCH_OBJ);
 <?php
 echo '<div class="container-fluid" >';
 
-if(!empty($result)) {
+if(isset($result)) {
     $rowArray = array("Date de réception:","Expéditeur:","Sujet:","Message:");
     $sqlRow = array("date", "login", "sujet", "corps");
 

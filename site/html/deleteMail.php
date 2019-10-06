@@ -12,7 +12,7 @@ require_once "connection.php";
 $sql = "DELETE FROM Message WHERE Message.id_message = " . $_GET["id"];
 
 $stmt = $pdo->query($sql);
-$result = $stmt->fetch(PDO::FETCH_OBJ);
+//$result = $stmt->fetch(PDO::FETCH_OBJ);
 
 header("location: index.php");
 ?>
