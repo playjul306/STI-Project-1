@@ -16,11 +16,18 @@ if (isset($_GET['delete_id_login'])) {
     try{
         $strSQLRequest = "DELETE FROM Utilisateur WHERE id_login = ".$_GET['delete_id_login'];
         $pdo->exec($strSQLRequest);
-        echo "Records were deleted successfully.";
+        if ($_GET['delete_id_login'] === $_SESSION['id']){
+            header("Location: logout.php");
+            //echo $_GET['delete_id_login']." ".$_SESSION['id'];
+        } else {
+            header('Location: admin.php');
+        }
     } catch(PDOException $e){
+        header("Location: 404.php");
         die("ERROR: Could not able to execute $strSQLRequest. " . $e->getMessage());
     }
 
+} else {
+    header("Location: 404.php");
 }
-header('Location: admin.php');
 ?>
