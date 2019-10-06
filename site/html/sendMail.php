@@ -9,6 +9,26 @@ if(empty($_SESSION["loggedin"]) && $_SESSION["loggedin"] === false){
 require_once "connection.php";
 
 $destination = $subject = $message = "";
+
+if(isset($_GET['id'])){
+    try{
+        $sql = "SELECT Utilisateur.login, Message.date, Message.sujet, Message.corps FROM Message INNER JOIN Utilisateur
+            ON Message.expediteur = Utilisateur.id_login WHERE Message.id_message = " . $_GET["id"];
+        $stmt = $pdo->query($sql);
+        $user = $stmt->fetch(PDO::FETCH_OBJ);
+        $destination = $user->login;
+        $subject = "Re: " . $user->sujet;
+        $message = "\r\n\r\n\r\n---------------------------->Réponse au mail ci-dessous\r\n\r\nEnvoyé le: " . $user->date
+            . " \r\nSujet: " . $user->sujet . " \r\n\r\n" . $user->corps;
+
+
+    }
+    catch (PDOException $e) {
+        die("ERROR: Could not able to execute $sql. " . $e->getMessage());
+    }
+}
+
+
 $destination_err = $subject_err = $message_err = "";
 
 // Traite le formulaire
@@ -16,17 +36,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty(trim($_POST["destination"]))){
         $destination_err = "Entrez un destinataire";
     } else{
-        $destination = trim($_POST["destination"]);
+        $destination = $_POST["destination"];
     }
     if(empty(trim($_POST["subject"]))){
         $subject_err = "Entrez un subject";
     } else{
-        $subject = trim($_POST["subject"]);
+        $subject = ($_POST["subject"]);
     }
     if(empty(trim($_POST["message"]))){
         $message_err = "Entrez un message";
     } else{
-        $message = trim($_POST["message"]);
+        $message = $_POST["message"];
     }
 
     if(empty($destination_err) && empty($subject_err) && empty($message_err)) {
@@ -54,7 +74,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $sql = "INSERT INTO Message (sujet, corps, date, expediteur, recepteur) VALUES (?,?,?,?,?)";
                 $stmt= $pdo->prepare($sql);
                 date_default_timezone_set('Europe/Zurich');
-                $stmt->execute([$_POST['subject'], $_POST['message'], date('d-m-Y h:i:s'), $_SESSION['id'], $idLogin]);
+                $stmt->execute([$subject, $message, date('d-m-Y H:i:s'), $_SESSION['id'], $idLogin]);
             }
             catch (PDOException $e) {
                 die("ERROR: Could not able to execute $sql. " . $e->getMessage());
@@ -65,9 +85,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         } else {
             $login_err = "Pas de compte trouvé avec ce destinataire ";
         }
-    }
-    else{
-        echo "error";
     }
 }
 
@@ -98,7 +115,7 @@ include_once('includes/header.inc.php');
                                 </div>
                                 <div class="form-group <?php echo (!empty($message_err)) ? 'has-error' : ''; ?>">
                                     <label>Message</label>
-                                    <textarea type="text" name="message" class="form-control"><?php echo $message; ?></textarea>
+                                    <pre><textarea type="text" name="message" rows="15" class="form-control"><?php echo $message; ?></textarea></pre>
                                     <span class="help-block"><?php echo $message_err; ?></span>
                                 </div>
                                 <div class="form-group">
