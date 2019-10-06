@@ -11,7 +11,7 @@ require_once "connection.php";
 
 
 $sql = "SELECT Message.date, Utilisateur.login, Message.sujet, Message.corps FROM Message INNER JOIN Utilisateur
-            ON Message.recepteur = Utilisateur.id_login WHERE Message.id_message = " . $_GET["id"];
+            ON Message.expediteur = Utilisateur.id_login WHERE Message.id_message = " . $_GET["id"];
 
 $stmt = $pdo->query($sql);
 $result = $stmt->fetch(PDO::FETCH_OBJ);
@@ -37,7 +37,7 @@ if(isset($result)) {
                         <div class="card-header py-3" >
                             <h6 class="m-0 font-weight-bold text-primary" >' . $rowArray[$i] . '</h6 >
                         </div >
-                    <div class="card-body" >' . $valueArray[$i] . '</div >
+                    <div class="card-body" >' . nl2br($valueArray[$i]) . '</div >
                 </div>
               </div >';
     }
