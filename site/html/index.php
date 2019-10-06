@@ -12,7 +12,7 @@
 
     $sql = "SELECT Message.id_message, Message.date, Utilisateur.login, Message.sujet FROM Message INNER JOIN Utilisateur
             ON Message.expediteur = Utilisateur.id_login WHERE Message.recepteur = " . $_SESSION["id"] .
-            " ORDER BY Message.id_message ASC";
+            " ORDER BY Message.id_message DESC";
 
     $stmt = $pdo->query($sql);
     $tabMessages = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -30,9 +30,10 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" data-order='[[ 0, "desc" ]]'>
                   <thead>
                   <tr>
+                    <th hidden>ID</th>
                     <th>Date de réception</th>
                     <th>Expéditeur</th>
                     <th>Sujet</th>
@@ -43,6 +44,7 @@
                   </thead>
                   <tfoot>
                   <tr>
+                      <th hidden>ID</th>
                       <th>Date de réception</th>
                       <th>Expéditeur</th>
                       <th>Sujet</th>
@@ -54,7 +56,7 @@
                   <tbody>
                   <?php
                       foreach($tabMessages as $mess){
-                          echo "<tr><td>" . $mess['date'] . "</td><td>"
+                          echo "<tr><td hidden>".$mess['id_message']."</td><td>" . $mess['date'] . "</td><td>"
                               . $mess['login'] . "</td><td>" . $mess['sujet'] . "</td>
                               <td><a href='sendMail.php'>répondre</a></td>
                               <td><a href='deleteMail.php?id=" . $mess['id_message'] . "'>supprimer</a></td>
