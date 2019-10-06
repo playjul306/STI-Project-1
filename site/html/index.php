@@ -10,9 +10,9 @@
 
     require_once "connection.php";
 
-    $sql = "SELECT Message.id_Message, Message.date, Utilisateur.login, Message.sujet FROM Message INNER JOIN Utilisateur
+    $sql = "SELECT Message.id_message, Message.date, Utilisateur.login, Message.sujet FROM Message INNER JOIN Utilisateur
             ON Message.expediteur = Utilisateur.id_login WHERE Message.recepteur = " . $_SESSION["id"] .
-            " ORDER BY Message.date ASC";
+            " ORDER BY Message.id_message ASC";
 
     $stmt = $pdo->query($sql);
     $tabMessages = $stmt->fetchAll(PDO::FETCH_ASSOC);

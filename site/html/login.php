@@ -69,7 +69,7 @@
                         $_SESSION["role"] = $role;
 
                         // Redirect user to welcome page
-                        header("location: login.php");
+                        header("location: index.php");
                     }
                     else{
                         echo "Compte non-valide !";
@@ -133,7 +133,8 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Veuillez vous connecter</h1>
                   </div>
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">                        <div class="form-group <?php echo (!empty($login_err)) ? 'has-error' : ''; ?>">
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                        <div class="form-group <?php echo (!empty($login_err)) ? 'has-error' : ''; ?>">
                             <div class="form-group <?php echo (!empty($login_err)) ? 'has-error' : ''; ?>">
                                 <label>login</label>
                                 <input type="text" name="login" class="form-control" value="<?php echo $login; ?>">
@@ -147,7 +148,8 @@
                             <div class="form-group">
                                 <input type="submit" class="btn btn-primary" value="Login">
                             </div>
-                  </form>
+                        </div>
+                    </form>
                   <hr>
                 </div>
               </div>
