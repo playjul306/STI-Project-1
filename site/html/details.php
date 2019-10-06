@@ -1,7 +1,6 @@
 <?php
-include_once('includes/header.inc.php');
-
 session_start();
+include_once('includes/header.inc.php');
 
 if(empty($_SESSION["loggedin"]) && $_SESSION["loggedin"] === false){
     header("location: login.php");
@@ -53,10 +52,10 @@ else{
                 </div >
             </div >';
 }
-echo '</div >';
 
 
 echo '<a href="index.php" class="btn btn-primary btn-user btn-block">Retour</a>';
+echo '</div >';
 
 include_once('includes/footer.inc.php');
 ?>
