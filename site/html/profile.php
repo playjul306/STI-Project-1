@@ -15,9 +15,10 @@ if (isset($_POST['password'])) {
         $stmt->execute([$hashPassword, $_SESSION["id"]]);
     } catch (PDOException $e){
         header("Location: 404.php");
-        echo $strSQLRequest;
-        die("ERROR: Could not able to execute $strSQLRequest. " . $e->getMessage());
     }
+}
+if (isset($_POST['edit'])) {
+    header( "refresh:5;url=index.php" );
 }
 
 include_once('includes/header.inc.php');
@@ -59,7 +60,7 @@ include_once('includes/header.inc.php');
                 <input type='submit' name='edit' class='btn btn-primary btn-user btn-block' value='Modifier'>
                 <?php
                     if (isset($_POST["edit"])) {
-                        echo "<div class=\"col-lg-6\">
+                        echo "<br><div class=\"col-lg-12\">
                                 <div class=\"card shadow mb-4\">
                                     <div class=\"card-header py-3\">
                                         <h6 class='m-0 font-weight-bold text-primary'>Votre mot de passe a été changé</h6>

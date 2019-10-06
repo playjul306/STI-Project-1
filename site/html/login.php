@@ -72,7 +72,7 @@
                         header("location: index.php");
                     }
                     else{
-                        echo "Compte non-valide !";
+                        $password_err =  "Compte non-valide !";
                     }
                 } else{
                     // Display an error message if password is not valid
