@@ -119,7 +119,7 @@ include_once('includes/header.inc.php');
                                     <span class="help-block"><?php echo $message_err; ?></span>
                                 </div>
                                 <div class="form-group">
-                                    <input type="submit" class="btn btn-primary" value="Envoyer">
+                                    <input type="submit" class="btn btn-primary btn-user btn-block" value="Envoyer">
                                 </div>
                             </div>
                         </form>
