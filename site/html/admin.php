@@ -13,13 +13,17 @@
     include_once('includes/header.inc.php');
     require_once("connection.php");
 
-    $strSQLRequest = "SELECT id_login, login, valide, nom_role FROM Utilisateur
-            INNER JOIN Role ON Utilisateur.id_role = Role.id_role
-            ORDER BY login";
-    $stmt = $pdo->query($strSQLRequest);
-    $tabUsers = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
-
+    try{
+        $strSQLRequest = "SELECT id_login, login, valide, nom_role FROM Utilisateur
+                INNER JOIN Role ON Utilisateur.id_role = Role.id_role
+                ORDER BY login";
+        $stmt = $pdo->query($strSQLRequest);
+        $tabUsers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+    } catch (PDOException $e) {
+        header("Location: 404.php");
+        die("ERREUR: " . $e->getMessage());
+    }
 ?>
 
         <!-- Begin Page Content -->

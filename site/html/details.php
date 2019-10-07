@@ -2,22 +2,23 @@
 session_start();
 include_once('includes/header.inc.php');
 
-if(empty($_SESSION["loggedin"]) && $_SESSION["loggedin"] === false){
+if(!isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === false){
     header("location: login.php");
     exit;
 }
 
 require_once "connection.php";
-
-
-$sql = "SELECT Message.date, Utilisateur.login, Message.sujet, Message.corps FROM Message INNER JOIN Utilisateur
+try {
+    $sql = "SELECT Message.date, Utilisateur.login, Message.sujet, Message.corps FROM Message INNER JOIN Utilisateur
             ON Message.expediteur = Utilisateur.id_login WHERE Message.id_message = " . $_GET["id"];
 
-$stmt = $pdo->query($sql);
-$result = $stmt->fetch(PDO::FETCH_OBJ);
-?>
+    $stmt = $pdo->query($sql);
+    $result = $stmt->fetch(PDO::FETCH_OBJ);
+} catch (PDOException $e) {
+    header("Location: 404.php");
+    die("ERREUR: " . $e->getMessage());
+}
 
-<?php
 echo '<div class="container-fluid" >';
 
 if(isset($result)) {

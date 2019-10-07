@@ -13,8 +13,9 @@ if (isset($_POST['password'])) {
         $strSQLRequest = "UPDATE Utilisateur SET password = ?WHERE id_login = ?";
         $stmt = $pdo->prepare($strSQLRequest);
         $stmt->execute([$hashPassword, $_SESSION["id"]]);
-    } catch (PDOException $e){
+    } catch (PDOException $e) {
         header("Location: 404.php");
+        die("ERREUR: " . $e->getMessage());
     }
 }
 if (isset($_POST['edit'])) {

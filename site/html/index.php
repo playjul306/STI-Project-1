@@ -2,21 +2,24 @@
 <?php
     session_start();
 
-    if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    if(!isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === false){
         header("location: login.php");
         exit;
     }
 
-
     require_once "connection.php";
 
-    $sql = "SELECT Message.id_message, Message.date, Utilisateur.login, Message.sujet FROM Message INNER JOIN Utilisateur
+    try{
+        $sql = "SELECT Message.id_message, Message.date, Utilisateur.login, Message.sujet FROM Message INNER JOIN Utilisateur
             ON Message.expediteur = Utilisateur.id_login WHERE Message.recepteur = " . $_SESSION["id"] .
             " ORDER BY Message.id_message DESC";
 
-    $stmt = $pdo->query($sql);
-    $tabMessages = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+        $stmt = $pdo->query($sql);
+        $tabMessages = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+                header("Location: 404.php");
+                die("ERREUR: " . $e->getMessage());
+    }
 
     include_once('includes/header.inc.php');
 ?>
