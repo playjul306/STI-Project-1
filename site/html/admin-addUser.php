@@ -148,7 +148,6 @@ include_once('includes/header.inc.php');
                             </div>
                             <div class='form-group'>
                             <div class='col-sm-2'>
-                                    <label class='text-lg'> Validité du compte :</label>
                                 </div>
                                 <div class='col-sm-4'>
                                     <select name='valide' class='form-control'>
