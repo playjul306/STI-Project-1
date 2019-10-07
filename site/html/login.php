@@ -136,12 +136,12 @@
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="form-group <?php echo (!empty($login_err)) ? 'has-error' : ''; ?>">
                             <div class="form-group <?php echo (!empty($login_err)) ? 'has-error' : ''; ?>">
-                                <label>login</label>
+                                <label>Login</label>
                                 <input type="text" name="login" class="form-control" value="<?php echo $login; ?>">
                                 <span class="help-block"><?php echo $login_err; ?></span>
                             </div>
                             <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
-                                <label>Password</label>
+                                <label>Mot de passe</label>
                                 <input type="password" name="password" class="form-control">
                                 <span class="help-block"><?php echo $password_err; ?></span>
                             </div>
