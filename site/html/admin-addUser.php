@@ -67,7 +67,7 @@ if(isset($_POST['edit'])){
 
             header("Location: admin.php");
         } else {
-            $error = "Ce login est déjà prit. Veuillez en choisir un autre";
+            $error = "Ce login est déjà pris. Veuillez en choisir un autre";
         }
     } else {
         header("Location: 404.php");
@@ -92,7 +92,7 @@ if(isset($_POST['add'])){
             die("ERREUR: " . $e->getMessage());
         }
     } else {
-        $error = "Ce login est déjà prit. Veuillez en choisir un autre";
+        $error = "Ce login est déjà pris. Veuillez en choisir un autre";
     }
 }
 
