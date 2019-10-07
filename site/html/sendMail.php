@@ -21,10 +21,9 @@ if(isset($_GET['id'])){
         $message = "\r\n\r\n\r\n---------------------------->Réponse au mail ci-dessous\r\n\r\nEnvoyé le: " . $user->date
             . " \r\nSujet: " . $user->sujet . " \r\n\r\n" . $user->corps;
 
-
-    }
-    catch (PDOException $e) {
-        die("ERROR: Could not able to execute $sql. " . $e->getMessage());
+    } catch (PDOException $e) {
+        header("Location: 404.php");
+        die("ERREUR: " . $e->getMessage());
     }
 }
 
@@ -54,9 +53,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $sql = "SELECT id_login, login FROM Utilisateur";
             $stmt = $pdo->query($sql);
             $tabUser = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }
-        catch (PDOException $e) {
-            die("ERROR: Could not able to execute $sql. " . $e->getMessage());
+        } catch (PDOException $e) {
+            header("Location: 404.php");
+            die("ERREUR: " . $e->getMessage());
         }
 
         $founded = 0;
@@ -68,16 +67,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             }
         }
 
-
         if ($founded) {
             try{
                 $sql = "INSERT INTO Message (sujet, corps, date, expediteur, recepteur) VALUES (?,?,?,?,?)";
                 $stmt= $pdo->prepare($sql);
                 date_default_timezone_set('Europe/Zurich');
                 $stmt->execute([$subject, $message, date('d-m-Y H:i:s'), $_SESSION['id'], $idLogin]);
-            }
-            catch (PDOException $e) {
-                die("ERROR: Could not able to execute $sql. " . $e->getMessage());
+            } catch (PDOException $e) {
+                header("Location: 404.php");
+                die("ERREUR: " . $e->getMessage());
             }
 
             header("location: index.php");

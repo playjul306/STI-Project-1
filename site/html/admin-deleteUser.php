@@ -24,9 +24,8 @@ if (isset($_GET['delete_id_login'])) {
         }
     } catch(PDOException $e){
         header("Location: 404.php");
-        die("ERROR: Could not able to execute $strSQLRequest. " . $e->getMessage());
+        die("ERREUR: " . $e->getMessage());
     }
-
 } else {
     header("Location: 404.php");
 }

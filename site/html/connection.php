@@ -5,9 +5,8 @@ try{
     $pdo = new PDO('sqlite:/usr/share/nginx/databases/database.sqlite');
     // Set errormode to exceptions
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-}
-catch(PDOException $e) {
-    // Print PDOException message
-    die("Erreur: " . $e->getMessage());
+} catch (PDOException $e) {
+    header("Location: 404.php");
+    die("ERREUR: " . $e->getMessage());
 }
 ?>

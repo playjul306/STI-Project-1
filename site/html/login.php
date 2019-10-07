@@ -30,12 +30,17 @@
 
         // S'il n'y a pas d'erreur, on se connecte à la base de données
         if(empty($login_err) && empty($password_err)) {
-            // Va récupérer le user de la bdd
-            $sql = "SELECT id_login, login, password, valide, nom_role FROM Utilisateur 
+            try{
+                // Va récupérer le user de la bdd
+                $sql = "SELECT id_login, login, password, valide, nom_role FROM Utilisateur 
                     INNER JOIN Role ON Utilisateur.id_role = Role.id_role";
 
-            $stmt = $pdo->query($sql);
-            $tabUsers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $stmt = $pdo->query($sql);
+                $tabUsers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                header("Location: 404.php");
+                die("ERREUR: " . $e->getMessage());
+            }
 
             $userExist = 0;
             $userValid = 0;

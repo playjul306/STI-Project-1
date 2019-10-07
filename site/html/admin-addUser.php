@@ -15,15 +15,19 @@ require_once("connection.php");
 $type = "ajout";
 $exist = 0;
 
-
 if (isset($_GET['edit_id_login'])) {
-    $idLoginToEdit = $_GET['edit_id_login'];
-    $strSQLRequest = "SELECT id_login, login, valide, nom_role, Utilisateur.id_role FROM Utilisateur
+    try{
+        $idLoginToEdit = $_GET['edit_id_login'];
+        $strSQLRequest = "SELECT id_login, login, valide, nom_role, Utilisateur.id_role FROM Utilisateur
             INNER JOIN Role ON Utilisateur.id_role = Role.id_role
             WHERE id_login LIKE '".$_GET['edit_id_login']."'";
-    $stmt = $pdo->query($strSQLRequest);
-    $userToEdit = $stmt->fetch(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
+        $stmt = $pdo->query($strSQLRequest);
+        $userToEdit = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+    } catch (PDOException $e) {
+        header("Location: 404.php");
+        die("ERREUR: " . $e->getMessage());
+    }
 }
 
 try {
@@ -33,7 +37,8 @@ try {
     $stmt->closeCursor();
 
 } catch (PDOException $e) {
-
+    header("Location: 404.php");
+    die("ERREUR: " . $e->getMessage());
 }
 
 if(isset($_POST['edit'])){
@@ -57,9 +62,9 @@ if(isset($_POST['edit'])){
                 }
             } catch (PDOException $e) {
                 header("Location: 404.php");
-                echo $strSQLRequest;
-                die("ERROR: Could not able to execute $strSQLRequest. " . $e->getMessage());
+                die("ERREUR: " . $e->getMessage());
             }
+
             header("Location: admin.php");
         } else {
             $error = "Ce login est déjà prit. Veuillez en choisir un autre";
@@ -82,10 +87,9 @@ if(isset($_POST['add'])){
             $stmt= $pdo->prepare($strSQLRequest);
             $stmt->execute([$_POST['login'], $hashPassword, $_POST['valide'], $_POST['Role']]);
             header("Location: admin.php");
-        } catch(PDOException $e){
+        } catch (PDOException $e) {
             header("Location: 404.php");
-            echo $strSQLRequest;
-            die("ERROR: Could not able to execute $strSQLRequest. " . $e->getMessage());
+            die("ERREUR: " . $e->getMessage());
         }
     } else {
         $error = "Ce login est déjà prit. Veuillez en choisir un autre";
@@ -121,10 +125,16 @@ include_once('includes/header.inc.php');
                                 <div class='col-sm-4'>
                                     <select name='Role' class='form-control'>
                                         <?php
-                                        $strSQLRequest = "SELECT id_role, nom_role FROM Role ORDER BY nom_role";
-                                        $stmt = $pdo->query($strSQLRequest);
-                                        $tabRoles = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                                        $stmt->closeCursor();
+                                        try{
+                                            $strSQLRequest = "SELECT id_role, nom_role FROM Role ORDER BY nom_role";
+                                            $stmt = $pdo->query($strSQLRequest);
+                                            $tabRoles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                            $stmt->closeCursor();
+                                        } catch (PDOException $e) {
+                                            header("Location: 404.php");
+                                            die("ERREUR: " . $e->getMessage());
+                                        }
+
                                         foreach ($tabRoles as $role){
                                             echo '<option value="'.$role['id_role'].'"';
                                             if (isset($userToEdit['login']) && $userToEdit['id_role'] == $role['id_role']){
@@ -166,8 +176,6 @@ include_once('includes/header.inc.php');
                                     <label class='text-lg'>".$error."</label>
                                 </div>
                                 </form>" : ""; ?>
-
-
 
                 </div>
             </div>
