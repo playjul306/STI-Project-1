@@ -81,7 +81,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             header("location: index.php");
 
         } else {
-            $login_err = "Pas de compte trouvé avec ce destinataire ";
+            $destination_err = "Pas de compte trouvé avec ce destinataire ";
         }
     }
 }
