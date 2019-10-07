@@ -87,13 +87,8 @@
             } else {
                 $login_err = "Pas de compte trouvé avec ce user ";
             }
-            
-            // Fermeture du statement
-            unset($stmt);
         }
-        // Fermeture de connection
-        unset($pdo);
-        }
+    }
 
 ?>
 
