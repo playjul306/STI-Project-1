@@ -15,7 +15,6 @@ if (isset($_POST['password'])) {
         $stmt->execute([$hashPassword, $_SESSION["id"]]);
     } catch (PDOException $e) {
         header("Location: 404.php");
-        die("ERREUR: " . $e->getMessage());
     }
 }
 if (isset($_POST['edit'])) {

@@ -16,7 +16,6 @@ try {
     $result = $stmt->fetch(PDO::FETCH_OBJ);
 } catch (PDOException $e) {
     header("Location: 404.php");
-    die("ERREUR: " . $e->getMessage());
 }
 
 echo '<div class="container-fluid" >';

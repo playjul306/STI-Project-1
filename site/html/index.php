@@ -17,8 +17,7 @@
         $stmt = $pdo->query($sql);
         $tabMessages = $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
-                header("Location: 404.php");
-                die("ERREUR: " . $e->getMessage());
+        header("Location: 404.php");
     }
 
     include_once('includes/header.inc.php');

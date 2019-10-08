@@ -23,7 +23,6 @@ if(isset($_GET['id'])){
 
     } catch (PDOException $e) {
         header("Location: 404.php");
-        die("ERREUR: " . $e->getMessage());
     }
 }
 
@@ -55,7 +54,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $tabUser = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             header("Location: 404.php");
-            die("ERREUR: " . $e->getMessage());
         }
 
         $founded = 0;
@@ -75,7 +73,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $stmt->execute([$subject, $message, date('d-m-Y H:i:s'), $_SESSION['id'], $idLogin]);
             } catch (PDOException $e) {
                 header("Location: 404.php");
-                die("ERREUR: " . $e->getMessage());
             }
 
             header("location: index.php");

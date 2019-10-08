@@ -24,7 +24,6 @@ if (isset($_GET['delete_id_login'])) {
         }
     } catch(PDOException $e){
         header("Location: 404.php");
-        die("ERREUR: " . $e->getMessage());
     }
 } else {
     header("Location: 404.php");

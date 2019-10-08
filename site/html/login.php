@@ -39,7 +39,6 @@
                 $tabUsers = $stmt->fetchAll(PDO::FETCH_ASSOC);
             } catch (PDOException $e) {
                 header("Location: 404.php");
-                die("ERREUR: " . $e->getMessage());
             }
 
             $userExist = 0;

@@ -26,7 +26,6 @@ if (isset($_GET['edit_id_login'])) {
         $stmt->closeCursor();
     } catch (PDOException $e) {
         header("Location: 404.php");
-        die("ERREUR: " . $e->getMessage());
     }
 }
 
@@ -38,7 +37,6 @@ try {
 
 } catch (PDOException $e) {
     header("Location: 404.php");
-    die("ERREUR: " . $e->getMessage());
 }
 
 if(isset($_POST['edit'])){
@@ -62,7 +60,6 @@ if(isset($_POST['edit'])){
                 }
             } catch (PDOException $e) {
                 header("Location: 404.php");
-                die("ERREUR: " . $e->getMessage());
             }
 
             header("Location: admin.php");
@@ -89,7 +86,6 @@ if(isset($_POST['add'])){
             header("Location: admin.php");
         } catch (PDOException $e) {
             header("Location: 404.php");
-            die("ERREUR: " . $e->getMessage());
         }
     } else {
         $error = "Ce login est déjà pris. Veuillez en choisir un autre";
@@ -132,7 +128,6 @@ include_once('includes/header.inc.php');
                                             $stmt->closeCursor();
                                         } catch (PDOException $e) {
                                             header("Location: 404.php");
-                                            die("ERREUR: " . $e->getMessage());
                                         }
 
                                         foreach ($tabRoles as $role){

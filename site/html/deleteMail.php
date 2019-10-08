@@ -13,7 +13,6 @@ try{
     $stmt = $pdo->query($sql);
 } catch (PDOException $e) {
     header("Location: 404.php");
-    die("ERREUR: " . $e->getMessage());
 }
 
 header("location: index.php");

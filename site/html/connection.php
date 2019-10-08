@@ -8,6 +8,5 @@ try{
     $stmt = "";
 } catch (PDOException $e) {
     header("Location: 404.php");
-    die("ERREUR: " . $e->getMessage());
 }
 ?>
