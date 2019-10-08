@@ -133,13 +133,13 @@
                     <h1 class="h4 text-gray-900 mb-4">Veuillez vous connecter</h1>
                   </div>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                        <div class="form-group <?php echo (!empty($login_err)) ? 'has-error' : ''; ?>">
-                            <div class="form-group <?php echo (!empty($login_err)) ? 'has-error' : ''; ?>">
+                        <div class="form-group">
+                            <div class="form-group">
                                 <label>Login</label>
                                 <input type="text" name="login" class="form-control" value="<?php echo $login; ?>">
                                 <span class="help-block"><?php echo $login_err; ?></span>
                             </div>
-                            <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+                            <div class="form-group">
                                 <label>Mot de passe</label>
                                 <input type="password" name="password" class="form-control">
                                 <span class="help-block"><?php echo $password_err; ?></span>

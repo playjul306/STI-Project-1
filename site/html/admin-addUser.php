@@ -15,20 +15,6 @@ require_once("connection.php");
 $type = "ajout";
 $exist = 0;
 
-if (isset($_GET['edit_id_login'])) {
-    try{
-        $idLoginToEdit = $_GET['edit_id_login'];
-        $strSQLRequest = "SELECT id_login, login, valide, nom_role, Utilisateur.id_role FROM Utilisateur
-            INNER JOIN Role ON Utilisateur.id_role = Role.id_role
-            WHERE id_login LIKE '".$_GET['edit_id_login']."'";
-        $stmt = $pdo->query($strSQLRequest);
-        $userToEdit = $stmt->fetch(PDO::FETCH_ASSOC);
-        $stmt->closeCursor();
-    } catch (PDOException $e) {
-        header("Location: 404.php");
-    }
-}
-
 try {
     $strSQLRequest = "SELECT id_login, login FROM Utilisateur";
     $stmt = $pdo->query($strSQLRequest);
@@ -41,22 +27,23 @@ try {
 
 if(isset($_POST['edit'])){
     if (isset($_POST['id_login'])){
+        $_GET['edit_id_login'] = $_POST['id_login'];
         foreach ($userExist as $user){
-            if ($_POST['login'] === $user['login'] && $_POST['id_login'] != $user['id_login']){
+            if (trim($_POST['login']) === $user['login'] && $_POST['id_login'] != $user['id_login']){
                 $exist = 1;
             }
         }
         if ($exist === 0){
             try {
-                if (isset($_POST['password'])) {
+                if (isset($_POST['password']) && $_POST['password'] != "") {
                     $hashPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
                     $strSQLRequest = "UPDATE Utilisateur SET login = ?, password = ?, valide = ?, id_role = ? WHERE id_login = ?";
                     $stmt = $pdo->prepare($strSQLRequest);
-                    $stmt->execute([$_POST['login'], $hashPassword, $_POST['valide'], $_POST['Role'], $_POST['id_login']]);
+                    $stmt->execute([trim($_POST['login']), $hashPassword, $_POST['valide'], $_POST['Role'], $_POST['id_login']]);
                 } else {
                     $strSQLRequest = "UPDATE Utilisateur SET login = ?, valide = ?, id_role = ? WHERE id_login = ?";
                     $stmt = $pdo->prepare($strSQLRequest);
-                    $stmt->execute([$_POST['login'], $_POST['valide'], $_POST['Role'], $_POST['id_login']]);
+                    $stmt->execute([trim($_POST['login']), $_POST['valide'], $_POST['Role'], $_POST['id_login']]);
                 }
             } catch (PDOException $e) {
                 header("Location: 404.php");
@@ -71,21 +58,44 @@ if(isset($_POST['edit'])){
     }
 }
 
+if (isset($_GET['edit_id_login'])) {
+    try{
+        $idLoginToEdit = $_GET['edit_id_login'];
+        $strSQLRequest = "SELECT id_login, login, valide, nom_role, Utilisateur.id_role FROM Utilisateur
+            INNER JOIN Role ON Utilisateur.id_role = Role.id_role
+            WHERE id_login LIKE '".$_GET['edit_id_login']."'";
+        $stmt = $pdo->query($strSQLRequest);
+        $userToEdit = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+    } catch (PDOException $e) {
+        header("Location: 404.php");
+    }
+}
+
 if(isset($_POST['add'])){
     foreach ($userExist as $user){
-        if ($_POST['login'] === $user['login']){
+        if (trim($_POST['login']) === $user['login']){
             $exist = 1;
         }
     }
     if ($exist === 0){
-        try {
-            $hashPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
-            $strSQLRequest ="INSERT INTO Utilisateur (login, password, valide, id_role) VALUES (?,?,?,?)";
-            $stmt= $pdo->prepare($strSQLRequest);
-            $stmt->execute([$_POST['login'], $hashPassword, $_POST['valide'], $_POST['Role']]);
-            header("Location: admin.php");
-        } catch (PDOException $e) {
-            header("Location: 404.php");
+        $login = trim($_POST['login']);
+        if (isset($login) && $login != "") {
+            if (isset($_POST['password']) && $_POST['password'] != "") {
+                try {
+                    $hashPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                    $strSQLRequest ="INSERT INTO Utilisateur (login, password, valide, id_role) VALUES (?,?,?,?)";
+                    $stmt= $pdo->prepare($strSQLRequest);
+                    $stmt->execute([$login, $hashPassword, $_POST['valide'], $_POST['Role']]);
+                    header("Location: admin.php");
+                } catch (PDOException $e) {
+                    header("Location: 404.php");
+                }
+            } else {
+                $error = "Vous devez entrer un mot de passe !";
+            }
+        } else {
+            $error = "Vous devez entrer un login !";
         }
     } else {
         $error = "Ce login est déjà pris. Veuillez en choisir un autre";
@@ -110,7 +120,7 @@ include_once('includes/header.inc.php');
                             <div class='form-group row'>
                                 <div class='col-sm-6 mb-3 mb-sm-0'>
                                     <?php echo (isset($userToEdit['login'])) ? "<input type='hidden' name='id_login' value='".$userToEdit['id_login']."'>" : ""; ?>
-                                    <input type='text' class='form-control form-control-user' placeholder='Login' name='login' <?php echo (isset($userToEdit['login'])) ? "value='".$userToEdit['login']."'" : ""; ?> >
+                                    <input type='text' class='form-control form-control-user' placeholder='Login' name='login' <?php echo (isset($userToEdit['login'])) ? "value='".$userToEdit['login']."'" : "value='".$_POST['login']."'"; ?> >
                                 </div>
                                 <div class='col-sm-2'>
                                     <label class='text-lg'> choisir un rôle :</label>
