@@ -7,7 +7,7 @@ if(!isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === false){
 }
 
 require_once ("connection.php");
-if (isset($_POST['password'])) {
+if (isset($_POST['password']) && $_POST['password'] != "") {
     try {
         $hashPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $strSQLRequest = "UPDATE Utilisateur SET password = ?WHERE id_login = ?";
@@ -52,14 +52,14 @@ include_once('includes/header.inc.php');
                                 <h6 class="m-0 font-weight-bold text-primary">Changer de mot de passe :</h6>
                             </div>
                             <div class="card-body">
-                                <input type="password" name="password" class="form-control form-control-user" placeholder="Mot de passe">
+                                <input type="password" id="password" name="password" class="form-control form-control-user" placeholder="Mot de passe" onfocus="checkEmpty()" onblur="checkEmpty()" onkeyup="checkEmpty()">
                             </div>
                         </div>
                     </div>
                 </div>
-                <input type='submit' name='edit' class='btn btn-primary btn-user btn-block' value='Modifier'>
+                <input type='submit' id="profile" name='edit' class='btn btn-primary btn-user btn-block' value='Modifier' disabled>
                 <?php
-                    if (isset($_POST["edit"])) {
+                    if (isset($_POST["edit"]) && isset($hashPassword)) {
                         echo "<br><div class=\"col-lg-12\">
                                 <div class=\"card shadow mb-4\">
                                     <div class=\"card-header py-3\">
@@ -76,6 +76,19 @@ include_once('includes/header.inc.php');
 
     </div>
     <!-- End of Main Content -->
+  <script>
+
+      function checkEmpty(){
+          if(document.getElementById('password').value != ""){
+              document.getElementById('profile').disabled = "";
+          }
+          else{
+              document.getElementById('profile').disabled = "disabled";
+          }
+      }
+
+  </script>
+
 
 
 <?php
