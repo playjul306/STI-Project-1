@@ -10,6 +10,7 @@ require_once "connection.php";
 
 $destination = $subject = $message = "";
 
+// Si un id de message est donné en url, on va répondre au message et donc préparer un corps spécial réponse
 if(isset($_GET['id'])){
     try{
         $sql = "SELECT Utilisateur.login, Message.date, Message.sujet, Message.corps FROM Message INNER JOIN Utilisateur
@@ -48,6 +49,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     if(empty($destination_err) && empty($subject_err) && empty($message_err)) {
+        // Récupère les users de la bdd
         try{
             $sql = "SELECT id_login, login FROM Utilisateur";
             $stmt = $pdo->query($sql);
@@ -57,6 +59,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
 
         $founded = 0;
+        // Check si on trouve l'expéditeur parmis les users de la bdd
         foreach($tabUser as $user){
             if($user['login'] === $destination){
                 $founded = 1;
@@ -65,6 +68,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             }
         }
 
+        // Si le user est trouvé, on va envoyer le message donc insérer dans la bdd
         if ($founded) {
             try{
                 $sql = "INSERT INTO Message (sujet, corps, date, expediteur, recepteur) VALUES (?,?,?,?,?)";

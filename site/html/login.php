@@ -1,8 +1,6 @@
 <?php
-
     session_start();
 
-    // Vérifie si le user est déjà co
     if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
         header("location: index.php");
         exit;
@@ -13,25 +11,23 @@
     $login = $password = "";
     $login_err = $password_err = "";
 
-    // Traite le formulaire
+    // Traite le formulaire et vérifie les champs
     if($_SERVER["REQUEST_METHOD"] == "POST"){
-        // Vérifie le champ user
         if(empty(trim($_POST["login"]))){
             $login_err = "Entrez le login";
         } else{
             $login = trim($_POST["login"]);
         }
-        // Vérifie le champ mot de passe
         if(empty(trim($_POST["password"]))){
             $password_err = "Entrez votre mot de passe";
         } else{
             $password = trim($_POST["password"]);
         }
 
-        // S'il n'y a pas d'erreur, on se connecte à la base de données
+        // On continue le traitement du formulaire que si les champs sont remplis
         if(empty($login_err) && empty($password_err)) {
+            // Récupère le user de la bdd
             try{
-                // Va récupérer le user de la bdd
                 $sql = "SELECT id_login, login, password, valide, nom_role FROM Utilisateur 
                     INNER JOIN Role ON Utilisateur.id_role = Role.id_role";
 
@@ -45,6 +41,7 @@
             $userValid = 0;
             $role = 0;
             $id_login = 0;
+            // Si le user existe dans la bdd, on récupère ses infos
             foreach ($tabUsers as $user) {
                 if ($user['login'] == $login) {
                     $hashed_password = $user['password'];
@@ -56,13 +53,12 @@
                 }
             }
 
+            // Si le user existe, on va setter la variable de session
             if ($userExist) {
                 if(password_verify($password, $hashed_password)){
                     if($userValid){
-                        // Password is correct, so start a new session
                         session_start();
 
-                        // Store data in session variables
                         $_SESSION["loggedin"] = true;
                         $_SESSION["isNotAdmin"] = 1;
                         if(strpos($role, 'admin') === 0) {
@@ -72,17 +68,14 @@
                         $_SESSION["login"] = $login;
                         $_SESSION["role"] = $role;
 
-                        // Redirect user to welcome page
                         header("location: index.php");
                     }
                     else{
                         $password_err =  "Compte non-valide !";
                     }
                 } else{
-                    // Display an error message if password is not valid
                     $password_err = "Le mot de passe entré n'est pas valide";
                 }
-
             } else {
                 $login_err = "Pas de compte trouvé avec ce user ";
             }
@@ -155,9 +148,7 @@
             </div>
           </div>
         </div>
-
       </div>
-
     </div>
 
   </div>

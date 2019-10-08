@@ -8,6 +8,8 @@ if(!isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === false){
 }
 
 require_once "connection.php";
+
+// Récupère les informations liées au message séléctionné
 try {
     $sql = "SELECT Message.date, Utilisateur.login, Message.sujet, Message.corps FROM Message INNER JOIN Utilisateur
             ON Message.expediteur = Utilisateur.id_login WHERE Message.id_message = " . $_GET["id"];
@@ -20,16 +22,18 @@ try {
 
 echo '<div class="container-fluid" >';
 
-if(isset($result)) {
+if(!empty($result)) {
     $rowArray = array("Date de réception:","Expéditeur:","Sujet:","Message:");
     $sqlRow = array("date", "login", "sujet", "corps");
 
     $valueArray = array();
     $cpt = 0;
+    // Ajoute les informations de chaque colonne du message dans un tableau
     for ($i = 0; $i < count($sqlRow); $i++){
         array_push($valueArray, $result->$sqlRow[$cpt++]);
     }
 
+    // Chaque info du message est affichée en formatant l'affichage
     for ($i = 0; $i < count($rowArray); $i++) {
         $sizeOfBloc = $i > 1 ? 9 : 3;
                 echo'<div class="col-lg-' . $sizeOfBloc .'">
