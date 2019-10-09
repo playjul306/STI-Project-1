@@ -14,7 +14,7 @@ require_once("connection.php");
 
 if (isset($_GET['delete_id_login'])) {
     try{
-        $strSQLRequest = "DELETE FROM Utilisateur WHERE id_login = ".$_GET['delete_id_login'];
+        $strSQLRequest = "UPDATE Utilisateur SET supprimer = '1' WHERE id_login = ".$_GET['delete_id_login'];
         $pdo->exec($strSQLRequest);
         if ($_GET['delete_id_login'] === $_SESSION['id']){
             header("Location: logout.php");

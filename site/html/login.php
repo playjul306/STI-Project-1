@@ -29,7 +29,7 @@
             // Récupère le user de la bdd
             try{
                 $sql = "SELECT id_login, login, password, valide, nom_role FROM Utilisateur 
-                    INNER JOIN Role ON Utilisateur.id_role = Role.id_role";
+                    INNER JOIN Role ON Utilisateur.id_role = Role.id_role WHERE supprimer = '0'";
 
                 $stmt = $pdo->query($sql);
                 $tabUsers = $stmt->fetchAll(PDO::FETCH_ASSOC);
