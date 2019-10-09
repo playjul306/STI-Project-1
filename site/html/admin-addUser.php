@@ -12,9 +12,8 @@ if (isset($_SESSION["isNotAdmin"]) && $_SESSION["isNotAdmin"] === 1){
 }
 require_once("connection.php");
 
-$type = "ajout";
 $exist = 0;
-
+//séléctionne tous les utilisateurs pour vérifier lors de l'ajout que le login n'est pas déjà pris
 try {
     $strSQLRequest = "SELECT id_login, login FROM Utilisateur";
     $stmt = $pdo->query($strSQLRequest);
@@ -25,9 +24,12 @@ try {
     header("Location: 404.php");
 }
 
+//partie permettant la modification d'utilisateurs
 if(isset($_POST['edit'])){
+    //vérifie que l'utilisateur a un id
     if (isset($_POST['id_login'])){
         $_GET['edit_id_login'] = $_POST['id_login'];
+        //vérifie si l'utilisateur existe déjà
         foreach ($userExist as $user){
             if (trim($_POST['login']) === $user['login'] && $_POST['id_login'] != $user['id_login']){
                 $exist = 1;
@@ -35,6 +37,7 @@ if(isset($_POST['edit'])){
         }
         if ($exist === 0){
             try {
+                //modification avec mdp ou sans
                 if (isset($_POST['password']) && $_POST['password'] != "") {
                     $hashPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
                     $strSQLRequest = "UPDATE Utilisateur SET password = ?, valide = ?, id_role = ? WHERE id_login = ?";
@@ -58,6 +61,7 @@ if(isset($_POST['edit'])){
     }
 }
 
+//récupère les donnée de l'utilisateur qu'on veut modifier en cliquant sur modifier sur la page admin
 if (isset($_GET['edit_id_login'])) {
     try{
         $idLoginToEdit = $_GET['edit_id_login'];
@@ -72,7 +76,9 @@ if (isset($_GET['edit_id_login'])) {
     }
 }
 
+//partie permettant l'ajout d'utilisateurs
 if(isset($_POST['add'])){
+    //vérifie si l'utilisateur existe déjà
     foreach ($userExist as $user){
         if (trim($_POST['login']) === $user['login']){
             $exist = 1;
@@ -80,6 +86,7 @@ if(isset($_POST['add'])){
     }
     if ($exist === 0){
         $login = trim($_POST['login']);
+        //vérifie qu'il y ai un login est un mdp renseigné dans les champs prévus
         if (isset($login) && $login != "") {
             if (isset($_POST['password']) && $_POST['password'] != "") {
                 try {

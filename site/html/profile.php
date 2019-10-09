@@ -7,6 +7,7 @@ if(!isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === false){
 }
 
 require_once ("connection.php");
+//modifie le mot de passe si le champs est rempli seulement
 if (isset($_POST['password']) && $_POST['password'] != "") {
     try {
         $hashPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
@@ -17,6 +18,7 @@ if (isset($_POST['password']) && $_POST['password'] != "") {
         header("Location: 404.php");
     }
 }
+//après modification, redirige sur l'index après 5 secondes
 if (isset($_POST['edit'])) {
     header( "refresh:5;url=index.php" );
 }
@@ -78,6 +80,7 @@ include_once('includes/header.inc.php');
     <!-- End of Main Content -->
   <script>
 
+      //désactive le boutton tant que le champs mdp n'est pas renseigné
       function checkEmpty(){
           if(document.getElementById('password').value != ""){
               document.getElementById('profile').disabled = "";

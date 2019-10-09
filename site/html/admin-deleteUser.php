@@ -12,13 +12,15 @@ if (isset($_SESSION["isNotAdmin"]) && $_SESSION["isNotAdmin"] === 1){
 
 require_once("connection.php");
 
+//vérifie qu'il y ait un user à supprimer
 if (isset($_GET['delete_id_login'])) {
     try{
+        //permet de garder l'utilisateur dans la base pour les messages, mais n'apparait plus sur le site
         $strSQLRequest = "UPDATE Utilisateur SET supprimer = '1' WHERE id_login = ".$_GET['delete_id_login'];
         $pdo->exec($strSQLRequest);
+        //si l'utilisateur se supprime lui même il est redirigé sur la page de logout, puis login
         if ($_GET['delete_id_login'] === $_SESSION['id']){
             header("Location: logout.php");
-            //echo $_GET['delete_id_login']." ".$_SESSION['id'];
         } else {
             header('Location: admin.php');
         }

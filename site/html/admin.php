@@ -13,6 +13,7 @@
     include_once('includes/header.inc.php');
     require_once("connection.php");
 
+    //selectionne tous les utilisateurs non "supprimé" de la base de donnée
     try{
         $strSQLRequest = "SELECT id_login, login, valide, nom_role FROM Utilisateur
                 INNER JOIN Role ON Utilisateur.id_role = Role.id_role WHERE supprimer = 0
