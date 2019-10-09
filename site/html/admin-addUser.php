@@ -37,13 +37,13 @@ if(isset($_POST['edit'])){
             try {
                 if (isset($_POST['password']) && $_POST['password'] != "") {
                     $hashPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
-                    $strSQLRequest = "UPDATE Utilisateur SET login = ?, password = ?, valide = ?, id_role = ? WHERE id_login = ?";
+                    $strSQLRequest = "UPDATE Utilisateur SET password = ?, valide = ?, id_role = ? WHERE id_login = ?";
                     $stmt = $pdo->prepare($strSQLRequest);
-                    $stmt->execute([trim($_POST['login']), $hashPassword, $_POST['valide'], $_POST['Role'], $_POST['id_login']]);
+                    $stmt->execute([$hashPassword, $_POST['valide'], $_POST['Role'], $_POST['id_login']]);
                 } else {
-                    $strSQLRequest = "UPDATE Utilisateur SET login = ?, valide = ?, id_role = ? WHERE id_login = ?";
+                    $strSQLRequest = "UPDATE Utilisateur SET valide = ?, id_role = ? WHERE id_login = ?";
                     $stmt = $pdo->prepare($strSQLRequest);
-                    $stmt->execute([trim($_POST['login']), $_POST['valide'], $_POST['Role'], $_POST['id_login']]);
+                    $stmt->execute([$_POST['valide'], $_POST['Role'], $_POST['id_login']]);
                 }
             } catch (PDOException $e) {
                 header("Location: 404.php");
@@ -84,9 +84,9 @@ if(isset($_POST['add'])){
             if (isset($_POST['password']) && $_POST['password'] != "") {
                 try {
                     $hashPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
-                    $strSQLRequest ="INSERT INTO Utilisateur (login, password, valide, id_role) VALUES (?,?,?,?)";
+                    $strSQLRequest ="INSERT INTO Utilisateur (login, password, valide, supprimer, id_role) VALUES (?,?,?,?,?)";
                     $stmt= $pdo->prepare($strSQLRequest);
-                    $stmt->execute([$login, $hashPassword, $_POST['valide'], $_POST['Role']]);
+                    $stmt->execute([$login, $hashPassword, $_POST['valide'], 0, $_POST['Role']]);
                     header("Location: admin.php");
                 } catch (PDOException $e) {
                     header("Location: 404.php");

@@ -15,7 +15,7 @@
 
     try{
         $strSQLRequest = "SELECT id_login, login, valide, nom_role FROM Utilisateur
-                INNER JOIN Role ON Utilisateur.id_role = Role.id_role WHERE supprimer = '0'
+                INNER JOIN Role ON Utilisateur.id_role = Role.id_role WHERE supprimer = 0
                 ORDER BY login";
         $stmt = $pdo->query($strSQLRequest);
         $tabUsers = $stmt->fetchAll(PDO::FETCH_ASSOC);
