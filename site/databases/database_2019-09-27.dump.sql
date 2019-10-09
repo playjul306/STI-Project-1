@@ -7,7 +7,6 @@
 -- Autheurs: Benoit Julien, Sutcu Volkan
 ----
 BEGIN TRANSACTION;
-PRAGMA foreign_keys = ON;
 ----
 -- Table structure for Message
 ----
@@ -19,7 +18,7 @@ FOREIGN KEY (expediteur) REFERENCES Utilisateur(id_login));
 ----
 -- Table structure for Utilisateur
 ----
-CREATE TABLE 'Utilisateur' ('id_login' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'login' TEXT NOT NULL, 'password' TEXT NOT NULL, 'valide' BOOLEAN NOT NULL, 'id_role' INTEGER NOT NULL, 
+CREATE TABLE 'Utilisateur' ('id_login' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'login' TEXT NOT NULL, 'password' TEXT NOT NULL, 'valide' BOOLEAN NOT NULL, 'supprimer' BOOLEAN NOT NULL, 'id_role' INTEGER NOT NULL, 
 FOREIGN KEY (id_role) REFERENCES Role(id_role));
 
 
@@ -28,14 +27,14 @@ FOREIGN KEY (id_role) REFERENCES Role(id_role));
 ----
 CREATE TABLE 'Role' ('id_role' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'nom_role' TEXT NOT NULL);
 
-INSERT INTO "Role" ("id_role","nom_role") VALUES ('1','administrateur');
-INSERT INTO "Role" ("id_role","nom_role") VALUES ('2','collaborateur');
+INSERT INTO 'Role' ('id_role','nom_role') VALUES ('1','administrateur');
+INSERT INTO 'Role' ('id_role','nom_role') VALUES ('2','collaborateur');
 
 
-INSERT INTO "Utilisateur" ("id_login","login","password","valide","id_role") VALUES ('1','volkan','$2y$10$huu4QydHJisVw0NMrSlNzusXZfhDHSu69D2Hpe0qBEtq2MqXYP.Nu','1','1');
-INSERT INTO "Utilisateur" ("id_login","login","password","valide","id_role") VALUES ('2','julien','$2y$10$H9u.7Y2EF9AXwfm4jJrAQeQtLUiE2V1OQkv1X/Opc.xA8F3IBsSQa','1','2');
+INSERT INTO 'Utilisateur' ('id_login','login','password','valide','supprimer','id_role') VALUES ('1','volkan','$2y$10$huu4QydHJisVw0NMrSlNzusXZfhDHSu69D2Hpe0qBEtq2MqXYP.Nu','1','0','1');
+INSERT INTO 'Utilisateur' ('id_login','login','password','valide','supprimer','id_role') VALUES ('2','julien','$2y$10$H9u.7Y2EF9AXwfm4jJrAQeQtLUiE2V1OQkv1X/Opc.xA8F3IBsSQa','1','0','2');
 
-INSERT INTO "Message" ("id_message","sujet","corps","date","expediteur","recepteur") VALUES ('1','test1','texte de test1','21-08-2019 06:52:54','1','2');
-INSERT INTO "Message" ("id_message","sujet","corps","date","expediteur","recepteur") VALUES ('2','test2','texte de test2','26-05-2018 13:02:14','2','1');
+INSERT INTO 'Message' ('id_message','sujet','corps','date','expediteur','recepteur') VALUES ('1','test1','texte de test1','21-08-2019 06:52:54','1','2');
+INSERT INTO 'Message' ('id_message','sujet','corps','date','expediteur','recepteur') VALUES ('2','test2','texte de test2','26-05-2018 13:02:14','2','1');
 
 COMMIT;
