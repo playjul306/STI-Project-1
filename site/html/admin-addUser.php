@@ -119,8 +119,16 @@ include_once('includes/header.inc.php');
                         <form method='post' action='admin-addUser.php' class='user'>
                             <div class='form-group row'>
                                 <div class='col-sm-6 mb-3 mb-sm-0'>
-                                    <?php echo (isset($userToEdit['login'])) ? "<input type='hidden' name='id_login' value='".$userToEdit['id_login']."'>" : ""; ?>
-                                    <input type='text' class='form-control form-control-user' placeholder='Login' name='login' <?php echo (isset($userToEdit['login'])) ? "value='".$userToEdit['login']."'" : "value='".$_POST['login']."'"; ?> >
+                                    <?php echo (isset($userToEdit['login'])) ? "<input type='hidden' name='id_login' value='".$userToEdit['id_login']."'>" : "";
+                                    if (isset($userToEdit['login'])) {
+                                        echo "<input type='text' class='form-control form-control-user' placeholder='Login' name='login' value='".$userToEdit['login']."' disabled >";
+                                    } else {
+                                        echo "<input type='text' class='form-control form-control-user' placeholder='Login' name='login' value='".$_POST['login']."'>";
+                                    }
+
+
+                                    ?>
+
                                 </div>
                                 <div class='col-sm-2'>
                                     <label class='text-lg'> choisir un rôle :</label>
