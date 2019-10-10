@@ -51,7 +51,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($destination_err) && empty($subject_err) && empty($message_err)) {
         // Récupère les users de la bdd
         try{
-            $sql = "SELECT id_login, login FROM Utilisateur";
+            $sql = "SELECT id_login, login, supprimer FROM Utilisateur";
             $stmt = $pdo->query($sql);
             $tabUser = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
@@ -64,12 +64,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             if($user['login'] === $destination){
                 $founded = 1;
                 $idLogin = $user['id_login'];
+                $deleted = $user['supprimer'];
                 break;
             }
         }
 
         // Si le user est trouvé, on va envoyer le message donc insérer dans la bdd
-        if ($founded) {
+        if ($founded && !$deleted) {
             try{
                 $sql = "INSERT INTO Message (sujet, corps, date, expediteur, recepteur) VALUES (?,?,?,?,?)";
                 $stmt= $pdo->prepare($sql);
