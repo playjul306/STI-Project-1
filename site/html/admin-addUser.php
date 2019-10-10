@@ -52,12 +52,26 @@ if(isset($_POST['edit'])){
                 header("Location: 404.php");
             }
 
-            header("Location: admin.php");
+            //gère le fait qu'un admin peut se changer ses droits ainsi que deésactivé son compte et donc enlève l'accès
+            // à la page d'administration et/ou renvoie à la page de login et deconnecte la session
+            if($_POST['Role'] === '2') {
+                $_SESSION["isNotAdmin"] = 1;
+            }
+            
+            if ($_POST['valide'] == 0) {
+                echo "salut";
+                header("Location: logout.php");
+            } else {
+                header("Location: admin.php");
+            }
+
         } else {
             $error = "Ce login est déjà pris. Veuillez en choisir un autre";
         }
     } else {
         header("Location: 404.php");
+    }{
+
     }
 }
 
