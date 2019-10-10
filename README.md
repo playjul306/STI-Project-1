@@ -36,8 +36,8 @@ Pour lancer le container docker avec le serveur nginx et PHP5, il faut se positi
 
 3. Ensuite sur la page d’administration de la base de donnée qui se trouve à l’adresse 
 
-   [Docker toolbox avec port 8080]: http://192.168.99.100:8080/phpliteadmin.php
-   [Docker Desktop avec port 8080]: http://localhost:8080/phpliteadmin.php
+   - **Docker toolbox avec port 8080 :**	http://192.168.99.100:8080/phpliteadmin.php
+   - **Docker Desktop avec port 8080 :**   http://localhost:8080/phpliteadmin.php
 
    il faut importer le dump sql qui se trouve dans `site/databases/database_2019-09-27.dump.sql` comme ci dessous (Le mot de passe pour phpliteadmin est "admin ».):
 
@@ -52,7 +52,7 @@ Deux utilisateurs seront ainsi créé avec respectivement les login et mot de pa
 
 pour vous connecter à l’application :
 
-[Docker toolbox avec port 8080]: http://192.168.99.100:8080/
-[Docker Desktop avec port 8080]: http://localhost:8080/
+- **Docker toolbox avec port 8080 : **	http://192.168.99.100:8080/ 
+- **Docker Desktop avec port 8080 :**	http://localhost:8080/
 
 Pour finir, il suffit de stopper le container docker.
