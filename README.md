@@ -52,7 +52,7 @@ Deux utilisateurs seront ainsi créé avec respectivement les login et mot de pa
 
 pour vous connecter à l’application :
 
-- **Docker toolbox avec port 8080 : **	http://192.168.99.100:8080/ 
+- **Docker toolbox avec port 8080 :**	http://192.168.99.100:8080/ 
 - **Docker Desktop avec port 8080 :**	http://localhost:8080/
 
 Pour finir, il suffit de stopper le container docker.
