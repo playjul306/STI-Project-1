@@ -1,7 +1,8 @@
 <?php
 session_start();
+include_once ('includes/header.inc.php');
 
-include_once ('includes/header.inc.php')
+
 ?>
     <!-- Begin Page Content -->
     <div class="container-fluid">
@@ -11,7 +12,7 @@ include_once ('includes/header.inc.php')
             <div class="error mx-auto" data-text="404">404</div>
             <p class="lead text-gray-800 mb-5">Page introuvable</p>
             <p class="text-gray-500 mb-0">Il s'avère que vous avez découvert une erreur dans la matrice...</p>
-            <a href="index.php">&larr; Retour à la boite de messages</a>
+            <a href="index.php">&larr; Retour</a>
         </div>
 
     </div>
@@ -21,5 +22,5 @@ include_once ('includes/header.inc.php')
     <!-- End of Main Content -->
 
 <?php
-include_once('includes/footer.inc.php');
+    include_once('includes/footer.inc.php');
 ?>

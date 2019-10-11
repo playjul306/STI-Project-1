@@ -1,8 +1,7 @@
 <?php
 session_start();
-include_once('includes/header.inc.php');
 
-if(!isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === false){
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false){
     header("location: login.php");
     exit;
 }
@@ -20,6 +19,7 @@ try {
     header("Location: 404.php");
 }
 
+include_once('includes/header.inc.php');
 echo '<div class="container-fluid" >';
 
 if(!empty($result)) {
