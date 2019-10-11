@@ -57,7 +57,7 @@ if(isset($_POST['edit'])){
             if($_POST['Role'] === '2') {
                 $_SESSION["isNotAdmin"] = 1;
             }
-            
+
             if ($_POST['valide'] == 0) {
                 echo "salut";
                 header("Location: logout.php");

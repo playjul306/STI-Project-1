@@ -57,7 +57,8 @@ else{
             </div >';
 }
 
-
+echo "<a href='sendMail.php?id=" . $_GET["id"] . "' class='btn btn-primary btn-user btn-block btn-dark'>répondre</a>";
+echo "<a href='deleteMail.php?id=" . $_GET["id"] . "' class='btn btn-primary btn-user btn-block btn-google'>supprimer</a>";
 echo '<a href="index.php" class="btn btn-primary btn-user btn-block">Retour</a>';
 echo '</div >';
 
