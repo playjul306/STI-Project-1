@@ -39,7 +39,7 @@ Pour lancer le container Docker avec le serveur nginx et PHP5, il faut ouvrir un
    - **Pour Docker toolbox avec port 8080 :**	http://192.168.99.100:8080/phpliteadmin.php
    - **Pour Docker Desktop avec port 8080 :**   http://localhost:8080/phpliteadmin.php
 
-   **Note: **pour accéder à la console d'administration, taper "admin" pour le mot de passe
+   **Note:** pour accéder à la console d'administration, taper "admin" pour le mot de passe
 
    Ensuite, il faut aller dans l'onglet "Import", sélectionner "SQL" et importer le fichier sql `database_2019-09-27.dump.sql` qui se trouve dans le dossier `site/databases/` via le bouton "Choisir un fichier" puis "Import" comme ci-dessous:
 
