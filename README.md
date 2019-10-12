@@ -1,6 +1,6 @@
 # STI-Project1
 
-> Auteurs : Sütcü Volkan & Benoit Julien  
+> Auteurs : Sutcu Volkan & Benoit Julien  
 > Date : 10.10.2019
 
 ## Introduction
@@ -9,7 +9,7 @@ Le but de ce projet était de créer un site web permettant d’échanger des me
 
 ## Comment lancer l'application
 
-Afin de lancer notre application, il faut au préalable avoir Docker qui soit installé sur la machine.
+Afin de lancer notre application, il faut au préalable avoir Docker installé sur la machine.
 
 L’arborescence de fichiers doit être comme sur l’image si dessous :
 
